@@ -1,0 +1,24 @@
+commit c1c10dc4343ab0331ec4dc8d2673f603da54f663 (HEAD -> master, origin/master)
+Author: Philip Glushuk <fil789.gmin@gmail.com>
+Date:   Tue Feb 6 16:10:43 2018 +0300
+
+    changed status.txt
+
+commit 0bb54ad5a5f826de8c4d1f35031a0aa1efe92a42
+Author: Philip Glushuk <fil789.gmin@gmail.com>
+Date:   Tue Feb 6 16:01:26 2018 +0300
+
+    add log.txt
+
+commit 3f3a7d7ddfc42e6bee063fd6a460ee90e233acaa
+Author: Philip Glushuk <fil789.gmin@gmail.com>
+Date:   Tue Feb 6 15:59:53 2018 +0300
+
+    added status.txt
+
+commit 8577ffb3bb445305b17d7f6013dcfff6b24be9d0
+Author: Philip Glushuk <fil789.gmin@gmail.com>
+Date:   Tue Feb 6 15:55:16 2018 +0300
+
+    added .gitignore
+
