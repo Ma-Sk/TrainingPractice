@@ -1,3 +1,4 @@
+(function() {
 function Photopost (id, description, createdAt, author, photolink, likes, hashtags)
 {
     this.id = id;
@@ -8,6 +9,7 @@ function Photopost (id, description, createdAt, author, photolink, likes, hashta
     this.likes = likes || [];
     this.hashtags = hashtags || [];
 }
+
 var photoPosts = [
     new Photopost("1", "description1", new Date("2018-02-26T23:00:00"), "Dima", "link", ["Vasia"], ["#cool", "#2018"]),
 	new Photopost("2", "description2", new Date("2017-02-26T23:00:00"), "Vasia", "link", ["Vasia", "Petia"], ["#cool", "#2018"]),
@@ -30,6 +32,7 @@ var photoPosts = [
     new Photopost("19", "description19", new Date("2018-02-15T23:00:00"), "Vasia", "link", ["Vasia", "Petia"], ["#cool", "#2018"]),
     new Photopost("20", "description20", new Date("2018-02-14T23:00:00"), "Vasia", "link", ["Vasia", "Petia"], ["#cool", "#2018"])
 ];
+
 function datesort(a, b)
 {
     var dif = a.createdAt - b.createdAt;
@@ -200,18 +203,12 @@ function editPhotoPost(id, photoPostChange)//: boolean
 function removePhotoPost(id)//: boolean
 {
     var i;
-    var flag = false;
     for (i = 0; i < photoPosts.length; i++)
         if (photoPosts[i].id === id) {
-            flag = true;
-            break;
+            photoPosts.splice(i, 1);
+			return true;
         }
-    if (flag) {
-        photoPosts.splice(i, 1);
-        return true;
-    }
-    else
-        return false;
+    return false;
 }
 
 console.log("\n\n\nget photoposts true");
@@ -281,4 +278,4 @@ console.log(getPhotoPosts(0, 10));
 
 console.log("\nremove photopost false");
 console.log(removePhotoPost("1250"));
-
+}());
