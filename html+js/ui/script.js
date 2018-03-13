@@ -43,43 +43,6 @@
         return 0;
     }
 
-    function haveHashtag(value, param) {
-        for (var j = 0; j < param.hashtags.length; j++) {
-            if (param.hashtags[j] === value) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function filtfunc(param, filterConfig) {
-        if (filterConfig.author !== undefined) {
-            if (typeof(filterConfig.author) === "string") {
-                if (filterConfig.author !== param.author) {
-                    return false;
-                }
-            }
-        }
-        if (filterConfig.createdAt !== undefined) {
-            if (typeof(filterConfig.createdAt) === "object") {
-                if (filterConfig.createdAt.getFullYear() !== param.createdAt.getFullYear()
-                    || filterConfig.createdAt.getMonth() !== param.createdAt.getMonth()
-                    || filterConfig.createdAt.getDate() !== param.createdAt.getDate()) {
-                    return false;
-                }
-            }
-        }
-
-        if (filterConfig.hashtags !== undefined) {
-            if (Array.isArray(filterConfig.hashtags)) {
-                return filterConfig.hashtags.some(haveHashtag)
-            }
-            else
-                return false;
-        }
-        return true;
-    }
-
     function getPhotoPosts(skip, top, filterConfig) {
         var buffmass1 = [];
         skip = skip || 0;
@@ -112,6 +75,43 @@
         }
     }
 
+    function filtfunc(param, filterConfig) {
+        if (filterConfig.author !== undefined) {
+            if (typeof(filterConfig.author) === "string") {
+                if (filterConfig.author !== param.author) {
+                    return false;
+                }
+            }
+        }
+        if (filterConfig.createdAt !== undefined) {
+            if (typeof(filterConfig.createdAt) === "object") {
+                if (filterConfig.createdAt.getFullYear() !== param.createdAt.getFullYear()
+                    || filterConfig.createdAt.getMonth() !== param.createdAt.getMonth()
+                    || filterConfig.createdAt.getDate() !== param.createdAt.getDate()) {
+                    return false;
+                }
+            }
+        }
+
+        function haveHashtag(value) {
+            for (var j = 0; j < param.hashtags.length; j++) {
+                if (param.hashtags[j] === value) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        if (filterConfig.hashtags !== undefined) {
+            if (Array.isArray(filterConfig.hashtags)) {
+                return filterConfig.hashtags.some(haveHashtag)
+            }
+            else
+                return false;
+        }
+        return true;
+    }
+
     function validatePhotoPost(photoPost) {
         if (typeof(photoPost.id) !== "string" || typeof(photoPost.description) !== "string"
             || photoPost.createdAt == "Invalid Date" || typeof(photoPost.author) !== "string"
@@ -124,23 +124,27 @@
 
         function correctHashtag(val) {
             if (val.charAt(0) === "#") {
-                for (var i = 0; i < val.length; i++)
-                    if (val.charAt(i) === " ")
+                for (var i = 0; i < val.length; i++) {
+                    if (val.charAt(i) === " ") {
                         return false;
-                return true;
+                    }
+                    return true;
+                }
             }
             return false;
         }
 
         if (Array.isArray(photoPost.likes)) {
-            if (!photoPost.likes.every(isString))
+            if (!photoPost.likes.every(isString)) {
                 return false;
+            }
         }
         else return false;
 
         if (Array.isArray(photoPost.hashtags)) {
-            if (!photoPost.hashtags.every(correctHashtag))
+            if (!photoPost.hashtags.every(correctHashtag)) {
                 return false;
+            }
         }
         else return false;
 
