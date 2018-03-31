@@ -18,7 +18,7 @@ a {
             display: none;
         }
 
-        aside {
+        main {
             position: absolute;
             top: 1vh;
             height: 92vh;
@@ -27,7 +27,7 @@ a {
             overflow-y: auto;
         }
 
-        #filter {
+        aside {
             padding: 3vh 1% 1% 0.5%;
             position: relative;
             top: 30vh;
@@ -41,11 +41,11 @@ a {
             font-size: 4vh;
         }
 
-        #filter select {
+        aside select {
             font-size: 100%;
         }
 
-        #filter .filternames {
+        aside .filternames {
             font-size: 100%;
             margin: 0;
         }
@@ -95,17 +95,17 @@ a {
             left: 0;
         }
 
-        aside {
+        main {
             position: relative;
-            top: 11vh;
+            top: 9vh;
             float: left;
-            height: 78vh;
+            height: 86vh;
             width: 77%;
             overflow-y: scroll;
             overflow-x: hidden;
         }
 
-        #filter {
+        aside {
             padding: 1%;
             position: relative;
             top: 0;
@@ -120,11 +120,11 @@ a {
             font-size: 2vh;
         }
 
-        #filter select {
+        aside select {
             font-size: 120%;
         }
 
-        #filter .filternames {
+        aside .filternames {
             font-size: 100%;
             margin: 0;
         }
@@ -157,8 +157,9 @@ a {
     header div {
         font-size: 6vh;
         font-family: Tahoma;
-        padding-left: 3vw;
-        padding-top: 1vh;
+        padding-top: 0.5vh;
+        margin-left: 2vw;
+        padding-bottom: 0.5vh;
         float: left;
     }
 }
@@ -185,15 +186,16 @@ a {
             display: none;
         }
 
-        aside {
+        main {
             position: relative;
-            top: 45vh;
+            top: 55vh;
             float: none;
-            height: 50vh;
-            overflow-x: scroll;
+            height: 40vh;
+            overflow-x: hidden;
+            overflow-y: scroll;
         }
 
-        #filter {
+        aside {
             padding: 1%;
             position: absolute;
             top: 15vh;
@@ -204,12 +206,12 @@ a {
             font-size: 3vh;
         }
 
-        #filter .filternames {
+        aside .filternames {
             font-size: 100%;
             margin: 0;
         }
 
-        #filter select {
+        aside select {
             height: auto;
             width: 30vw;
             font-size: 2vw;
@@ -263,16 +265,15 @@ a {
             left: 0;
         }
 
-        aside {
-            margin-top: 10vh;
+        main {
             position: relative;
-            width: 99%;
-            height: 40vh;
+            top: 9vh;
+            width: 100%;
+            height: 63vh;
             overflow-y: scroll;
         }
 
-
-        #filter {
+        aside {
             padding: 1%;
             position: relative;
             top: 8vh;
@@ -282,12 +283,13 @@ a {
             border-radius: 5px;
             font-size: 2vh;
         }
-        #filter .filternames {
+
+        aside .filternames {
             font-size: 100%;
             margin: 0;
         }
 
-        #filter select {
+        aside select {
             margin-top: 1vh;
             width: 30vw;
             font-size: 100%;
@@ -314,18 +316,20 @@ a {
     header div {
         font-size: 100%;
         font-family: Tahoma;
-        padding-left: 3vw;
-        margin-top: 1vh;
+        padding-top: 0.5vh;
+        margin-left: 2vw;
+        padding-bottom: 0.5vh;
         float: left;
     }
 }
 
 .menuicons {
     position: relative;
-    right: 5%;
+    bottom: 0.5vh;
     float: right;
-    margin: 0;
-    padding-right: 7%;
+    padding-right: 1vw;
+    padding-left: 0.5vw;
+    margin-right: 4vw;
     width: 6vw; /* Ширина */
     height: 6vh; /* Высота */
 }
@@ -334,7 +338,7 @@ a {
     z-index: 10;
     position: relative;
     margin-top: 1vh;
-    padding: 0px;
+    padding: 0;
     margin-left: -2vw;
     width: 10vw;
     padding-bottom: 0.5vh;
@@ -357,7 +361,7 @@ a {
     display: block;
 }
 
-.column {
+#column {
     margin: 0.5%;
     display: block;
     float: left;
@@ -401,9 +405,10 @@ a {
 }
 
 .hashtags {
+    margin: 1%;
     padding: 1%;
     float: right;
-    width: 100%;
+    width: 95%;
     height: 10%;
     background-color: #ebebeb;
     border: 1px solid black;
@@ -424,7 +429,7 @@ a {
 .edit {
     width: 3vw;
     height: 3vw;
-    margin-left: 32%;
+    margin-left: 28%;
     margin-right: 32%;
 }
 
@@ -432,7 +437,6 @@ a {
     margin-left: 8%;
     width: 3vw;
     height: 3vw;
-    float: left;
 }
 
 .delete {
@@ -449,19 +453,43 @@ a {
 }
 
 footer div {
+    margin-top: 1vh;
     float: left;
-    font-size: 65%;
+    font-size: 45%;
     margin-left: 3%;
 }
 
 #trademark {
     float: right;
     margin-right: 3%;
-    font-size: 70%;
+    font-size: 50%;
 }
 
 select {
     width: 63%;
     font-size: 3vh;
     color: #444444;
+}
+
+@media screen and (min-width: 1000px) {
+    .post {
+        padding: 1%;
+        margin: 1%;
+        width: 45%;
+        height: auto;
+        border: 3px solid black;
+        border-radius: 15px;
+        font-size: 2vw;
+    }
+
+    .edit {
+        width: 3vw;
+        height: 3vw;
+        margin-left: 19%;
+        margin-right: 22%;
+    }
+}
+
+hr {
+    width: 100%;
 }

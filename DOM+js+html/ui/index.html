@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Welcome to View!</title>
+</head>
+<body>
+<header>
+    <div>
+        <div>
+            <a href="">PortalPhoto</a>
+        </div>
+    </div>
+    <div id="addedit" class="menuicons">
+        <a href="#AddEditPhoto"><img src="images/camera.png" alt="camera"></a>
+    </div>
+    <div class="menuicons">
+        <a href="#submenu" class="main-item">
+            <img id="usericon" src="images/user.png" href="#submenu" alt="user">
+            <ul id='submenu' class="sub-menu">
+                <p id="username"></p>
+                <p id="log">Sign in</p>
+                <p><a href="#3">Hide menu</a></p>
+            </ul>
+        </a>
+    </div>
+</header>
+<aside>
+    <div>
+        <h6 class="filternames">Authors name:</h6>
+        <select class="textinput" id="authornames" ><option selected value="defaultvalue"></select>
+    </div>
+    <div>
+        <h6 class="filternames">Date:</h6>
+        <input class="textinput" value="" size="20">
+    </div>
+    <div>
+        <h6 class="filternames">Hashtags:</h6>
+        <!--<input class="textinput" value="#sk" size="20">-->
+        <select id="hashtags" class="textinput">
+            <option selected value="ClickHereToViewAll#Tags">ClickHereToViewAll#Tags</option>
+        </select>
+    </div>
+    <input type="button" value="Filter" id="filterbutton">
+</aside>
+<main>
+    <div id="column">
+        <!--<div class="post">-->
+        <!--<div class="userphoto">-->
+        <!--<img src="images/user.png"/>-->
+        <!--<div>Glushuk Philip</div>-->
+        <!--<div class="date">15:08 25.02.2018</div>-->
+        <!--</div>-->
+        <!--<img src="images/face.jpg" class="photopost">-->
+        <!--<div>-->
+        <!--<img src="images/like.jpg" class="like">-->
+        <!--<img src="images/edit.png" class="edit">-->
+        <!--<img src="images/bin.jpg" class="delete">-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div>-->
+        <!--<div class="hashtags">-->
+        <!--#interesting-->
+        <!--</div>-->
+        <!--It's view<br>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="post">-->
+        <!--<div class="userphoto">-->
+        <!--<img src="images/user.png"/>-->
+        <!--<div>Glushuk Philip</div>-->
+        <!--<div class="date">15:08 25.02.2018</div>-->
+        <!--</div>-->
+        <!--<img src="images/face.jpg" class="photopost">-->
+        <!--<div>-->
+        <!--<img src="images/like.jpg" class="like">-->
+        <!--<img src="images/edit.png" class="edit">-->
+        <!--<img src="images/bin.jpg" class="delete">-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div>-->
+        <!--<div class="hashtags">-->
+        <!--#interesting-->
+        <!--</div>-->
+        <!--It's view<br>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="post">-->
+        <!--<div class="userphoto">-->
+        <!--<img src="images/user.png"/>-->
+        <!--<div>Glushuk Philip</div>-->
+        <!--<div class="date">15:08 25.02.2018</div>-->
+        <!--</div>-->
+        <!--<img src="images/face.jpg" class="photopost">-->
+        <!--<div>-->
+        <!--<img src="images/like.jpg" class="like">-->
+        <!--<img src="images/edit.png" class="edit">-->
+        <!--<img src="images/bin.jpg" class="delete">-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div>-->
+        <!--<div class="hashtags">-->
+        <!--#interesting-->
+        <!--</div>-->
+        <!--It's view<br>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="post">-->
+        <!--<div class="userphoto">-->
+        <!--<img src="images/user.png"/>-->
+        <!--<div>Glushuk Philip</div>-->
+        <!--<div class="date">15:08 25.02.2018</div>-->
+        <!--</div>-->
+        <!--<img src="images/face.jpg" class="photopost">-->
+        <!--<div>-->
+        <!--<img src="images/like.jpg" class="like">-->
+        <!--<img src="images/edit.png" class="edit">-->
+        <!--<img src="images/bin.jpg" class="delete">-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div>-->
+        <!--<div class="hashtags">-->
+        <!--#interesting-->
+        <!--</div>-->
+        <!--It's view<br>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="post">-->
+        <!--<div class="userphoto">-->
+        <!--<img src="images/user.png"/>-->
+        <!--<div>Glushuk Philip</div>-->
+        <!--<div class="date">15:08 25.02.2018</div>-->
+        <!--</div>-->
+        <!--<img src="images/face.jpg" class="photopost">-->
+        <!--<div>-->
+        <!--<img src="images/like.jpg" class="like">-->
+        <!--<img src="images/edit.png" class="edit">-->
+        <!--<img src="images/bin.jpg" class="delete">-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div>-->
+        <!--<div class="hashtags">-->
+        <!--#interesting-->
+        <!--</div>-->
+        <!--It's view<br>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="post">-->
+        <!--<div class="userphoto">-->
+        <!--<img src="images/user.png"/>-->
+        <!--<div>Glushuk Philip</div>-->
+        <!--<div class="date">15:08 25.02.2018</div>-->
+        <!--</div>-->
+        <!--<img src="images/face.jpg" class="photopost">-->
+        <!--<div>-->
+        <!--<img src="images/like.jpg" class="like">-->
+        <!--<img src="images/edit.png" class="edit">-->
+        <!--<img src="images/bin.jpg" class="delete">-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div>-->
+        <!--<div class="hashtags">-->
+        <!--#interesting-->
+        <!--</div>-->
+        <!--It's view<br>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="post">-->
+        <!--<div class="userphoto">-->
+        <!--<img src="images/user.png"/>-->
+        <!--<div>Glushuk Philip</div>-->
+        <!--<div class="date">15:08 25.02.2018</div>-->
+        <!--</div>-->
+        <!--<img src="images/face.jpg" class="photopost">-->
+        <!--<div>-->
+        <!--<img src="images/like.jpg" class="like">-->
+        <!--<img src="images/edit.png" class="edit">-->
+        <!--<img src="images/bin.jpg" class="delete">-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div>-->
+        <!--<div class="hashtags">-->
+        <!--#interesting-->
+        <!--</div>-->
+        <!--It's view<br>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="post">-->
+        <!--<div class="userphoto">-->
+        <!--<img src="images/user.png"/>-->
+        <!--<div>Glushuk Philip</div>-->
+        <!--<div class="date">15:08 25.02.2018</div>-->
+        <!--</div>-->
+        <!--<img src="images/face.jpg" class="photopost">-->
+        <!--<div>-->
+        <!--<img src="images/like.jpg" class="like">-->
+        <!--<img src="images/edit.png" class="edit">-->
+        <!--<img src="images/bin.jpg" class="delete">-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div>-->
+        <!--<div class="hashtags">-->
+        <!--#interesting-->
+        <!--</div>-->
+        <!--It's view<br>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="post">-->
+        <!--<div class="userphoto">-->
+        <!--<img src="images/user.png"/>-->
+        <!--<div>Glushuk Philip</div>-->
+        <!--<div class="date">15:08 25.02.2018</div>-->
+        <!--</div>-->
+        <!--<img src="images/face.jpg" class="photopost">-->
+        <!--<div>-->
+        <!--<img src="images/like.jpg" class="like">-->
+        <!--<img src="images/edit.png" class="edit">-->
+        <!--<img src="images/bin.jpg" class="delete">-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div>-->
+        <!--<div class="hashtags">-->
+        <!--#interesting<br><br><br><br><br>yep-->
+        <!--</div>-->
+        <!--It's view<br><br><br><br><br>yep-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="post">-->
+        <!--<div class="userphoto">-->
+        <!--<img src="images/user.png"/>-->
+        <!--<div>Glushuk Philip</div>-->
+        <!--<div class="date">15:08 25.02.2018</div>-->
+        <!--</div>-->
+        <!--<img src="images/face.jpg" class="photopost">-->
+        <!--<div>-->
+        <!--<img src="images/like.jpg" class="like">-->
+        <!--<img src="images/edit.png" class="edit">-->
+        <!--<img src="images/bin.jpg" class="delete">-->
+        <!--</div>-->
+        <!--<hr>-->
+        <!--<div>-->
+        <!--<div class="hashtags">-->
+        <!--#interesting-->
+        <!--</div>-->
+        <!--It's view<br><br><br><br>-->
+        <!--Yep-->
+        <!--</div>-->
+        <!--</div>-->
+    </div>
+    <div><a href=""><img id="more" src="images/arrow.jpg"></a></div>
+</main>
+<footer>
+    <div><strong>Creator:</strong> Glushuk Philip</div>
+    <div><strong>Group:</strong> 13 <strong>Course:</strong> 2</div>
+    <div><strong>Email: </strong>fil789.gmin@gmail.com</div>
+    <div><strong>Last changes:</strong> 26.02.2018</div>
+    <div id="trademark"><strong>©PortalPhoto</strong></div>
+</footer>
+</body>
+<script src="script.js"></script>
+</html>
