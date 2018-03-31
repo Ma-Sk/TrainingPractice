@@ -576,3 +576,4 @@ dom.addLike("1000", new Set(["Vasia"])); //delete like
 debugger;
 dom.setUser();//log off
 debugger;
+dom.deletePostFromHtml("1000");
