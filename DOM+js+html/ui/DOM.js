@@ -135,10 +135,9 @@ let dom = (function () {
     function authorsSelect() {
         let set = new Set();
         set.add("");
-        for (let i = 0; i < photoPosts.length; i++) {
-            if (photoPosts[i].isDeleted === false) {
-                set.add(photoPosts[i].author);
-            }
+        let activePhotoPosts = js.getPhotoPosts(0, photoPosts.length);
+        for (let i = 0; i < activePhotoPosts.length; i++) {
+                set.add(activePhotoPosts[i].author);
         }
         let authornames = document.getElementById("authornames");
         while (authornames.firstChild) {
@@ -152,14 +151,14 @@ let dom = (function () {
     function hashtagsSelect() {
         let set = new Set();
         set.add("");
-        for (let i = 0; i < photoPosts.length; i++) {
-            let activePhotoPosts = js.getPhotoPosts(0, photoPosts.length);
-            activePhotoPosts.hashtags.forEach(function (value) {
+        let activePhotoPosts = js.getPhotoPosts(0, photoPosts.length);
+        for (let i = 0; i < activePhotoPosts.length; i++) {
+            activePhotoPosts[i].hashtags.forEach(function (value) {
                 set.add(value);
             });
         }
         let hashs = document.getElementById("hashtags");
-        while (hashs.firstChild) {  
+        while (hashs.firstChild) {
             hashs.removeChild(hashs.firstChild);
         }
         set.forEach(function (value) {
