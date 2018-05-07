@@ -101,9 +101,7 @@ let js = (function () {
                 }
             }
         }
-        let ret = filteredPosts.slice(skip, skip + top);
-        lastLoadedPostsAmount += ret.length;
-        return ret;
+        return filteredPosts.slice(skip, skip + top);
     }
 
     function getPhotoPost(id) {

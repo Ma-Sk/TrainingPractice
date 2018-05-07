@@ -46,6 +46,7 @@ let dom = (function () {
             column.removeChild(column.firstChild);
         }
         let htmlPhotoPosts = js.getPhotoPosts(0, 10 + lastLoadedPostsAmount, filterConfig);
+        lastLoadedPostsAmount += htmlPhotoPosts.length;
         for (let i = 0; i < htmlPhotoPosts.length; i++) {
             column.appendChild(generatePostToHtml(htmlPhotoPosts[i]));
         }
@@ -55,6 +56,7 @@ let dom = (function () {
     function addMorePosts() {
         let htmlPhotoPosts = js.getPhotoPosts(lastLoadedPostsAmount, 10, lastFilterConfig);
         lastLoadedPostsAmount += htmlPhotoPosts.length;
+        console.log(htmlPhotoPosts.length);
         for (let i = 0; i < htmlPhotoPosts.length; i++) {
             let column = document.getElementById("column");
             column.appendChild(generatePostToHtml(htmlPhotoPosts[i]));
@@ -201,6 +203,7 @@ let dom = (function () {
 
     function loadMainPage(user) {
         clearPage();
+        lastLoadedPostsAmount = 0;
         let content = document.getElementById('content');
         let filter = document.createElement('aside');
         filter.id = "mainPageAside";
