@@ -88,7 +88,7 @@ let dom = (function () {
             </div>
             <img src="${photoPostToLoad.photolink}" class="photopost">
             <div>
-                <button class="photobutton like"><img src="images/like.jpg" class="like"></button><span style='font-size: 180%' class='likesCount'> ${photoPostToLoad.likes.length}</span>
+                <button class="photobutton like"><img src="images/like.jpg" class="like"></button><span style='font-size: 180%' class='likesCount'>${photoPostToLoad.likes.length}</span>
                 ${((currentUser !== null && currentUser === photoPostToLoad.author) ? "<button class='photobutton edit'><img src=\"images/edit.png\" class=\"edit\"></button>" : " ")}
                 ${((currentUser !== null && currentUser === photoPostToLoad.author) ? "<button class='photobutton delete'><img src=\"images/bin.jpg\" class=\"del\"></button>" : " ")}
             </div>
