@@ -16,7 +16,7 @@ let eve = (function() {
         let createdDate = date.trim().split('/');
         dom.showPostsToHtml({ author: author, createdAt: new Date(parseInt(createdDate[2]), parseInt(createdDate[1]) - 1, parseInt(createdDate[0])), hashtags: hashtags.trim().split(' ')});
     }
-    function log() {
+    function login() {
         if(currentUser === null){
             dom.loadLoginPage();
         }else{
@@ -42,7 +42,7 @@ let eve = (function() {
     return {
         like,
         addMore,
-        log,
+        login,
         add,
         edit,
         del,
