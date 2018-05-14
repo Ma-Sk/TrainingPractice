@@ -95,11 +95,9 @@ let js = (function () {
             }
         }
         else {
-            for (let i = 0; i < photoPosts.length; i++) {
-                if (!photoPosts[i].isDeleted) {
-                    filteredPosts.push(photoPosts[i]);
-                }
-            }
+            filteredPosts = photoPosts.filter(element => {
+                return !element.isDeleted;
+            });
         }
         return filteredPosts.slice(skip, skip + top);
     }
@@ -160,7 +158,7 @@ let js = (function () {
     }
 
     function correctHashtag(val) {
-        if (val.charAt(0) === '#') {
+        if (typeof(val) === 'string' && val.charAt(0) === '#') {
             for (let i = 0; i < val.length; i++) {
                 if (val.charAt(i) === ' ') {
                     return false;
@@ -171,6 +169,10 @@ let js = (function () {
         else return false;
     }
 
+    function isString(val) {
+        return (typeof (val) === 'string');
+    }
+
     function validatePhotoPost(photoPost) {
         if (typeof(photoPost.id) !== 'string'
             || typeof(photoPost.description) !== 'string'
@@ -178,11 +180,9 @@ let js = (function () {
             || typeof(photoPost.author) !== 'string'
             || typeof(photoPost.photolink) !== 'string')
             return false;
-        if (typeof(photoPost.likes) === 'object') {
-            for (let val of photoPost.likes) {
-                if (typeof(val) !== 'string') {
-                    return false;
-                }
+        if (Array.isArray(photoPost.likes)) {
+            if (!photoPost.hashtags.every(isString)) {
+                return false;
             }
         }
         else return false;
@@ -226,55 +226,45 @@ let js = (function () {
     }
 
     function editPhotoPost(id, photoPostChange) {
-        let i, j;
+        let j;
         let flag = false;
-        for (i = 0; i < photoPosts.length; i++) {
-            if (photoPosts[i].id == id) {
-                if (validatePhotoPost(photoPosts[i])) {
-                    if (photoPostChange.description !== undefined) {
-                        if (typeof(photoPostChange.description) === 'string') {
-                            photoPosts[i].description = photoPostChange.description;
-                            flag = true;
-                        }
+        let postToEdit = getPhotoPost(id.toString());
+        if (photoPostChange.description !== undefined) {
+            if (typeof(photoPostChange.description) === 'string') {
+                postToEdit.description = photoPostChange.description;
+                flag = true;
+            }
+        }
+        if (photoPostChange.photolink !== undefined) {
+            if (typeof(photoPostChange.photolink) === 'string') {
+                postToEdit.photolink = photoPostChange.photolink;
+                flag = true;
+            }
+        }
+        if (photoPostChange.hashtags !== undefined) {
+            if (Array.isArray(photoPostChange.hashtags)) {
+                postToEdit.hashtags = [];
+                for(let i = 0; i < photoPostChange.hashtags.length; i++){
+                    if (correctHashtag(photoPostChange.hashtags[i])) {
+                        postToEdit.hashtags.push(photoPostChange.hashtags[i]);
+                        flag = true;
                     }
-                    if (photoPostChange.photolink !== undefined) {
-                        if (typeof(photoPostChange.photolink) === 'string') {
-                            photoPosts[i].photolink = photoPostChange.photolink;
-                            flag = true;
-                        }
+                }
+            }
+        }
+        if (photoPostChange.likes !== undefined) {
+            if (Array.isArray(photoPostChange.likes) && photoPostChange.likes.every(isString)) {
+                for (j = 0; j < photoPostChange.likes.length; j++) {
+                    let tempLikesSet = new Set(postToEdit.likes);
+                    if (tempLikesSet.has(photoPostChange.likes[j])) {
+                        tempLikesSet.delete(photoPostChange.likes[j]);
+                        flag = true;
                     }
-                    if (photoPostChange.hashtags !== undefined) {
-                        if (Array.isArray(photoPostChange.hashtags)) {
-                            photoPosts[i].hashtags = [];
-                            for (j = 0; j < photoPostChange.hashtags.length; j++) {
-                                if (typeof(photoPostChange.hashtags[j]) === 'string') {
-                                    if (correctHashtag(photoPostChange.hashtags[j])) {
-                                        photoPosts[i].hashtags.push(photoPostChange.hashtags[j]);
-                                        flag = true;
-                                    }
-                                }
-                            }
-                        }
+                    else {
+                        tempLikesSet.add(photoPostChange.likes[j]);
+                        flag = true;
                     }
-                    if (photoPostChange.likes !== undefined) {
-                        if (Array.isArray(photoPostChange.likes)) {
-                            for (j = 0; j < photoPostChange.likes.length; j++) {
-                                if (typeof(photoPostChange.likes[j]) === 'string') {
-                                    let tempLikesSet = new Set(photoPosts[i].likes);
-                                    if (tempLikesSet.has(photoPostChange.likes[j])) {
-                                        tempLikesSet.delete(photoPostChange.likes[j]);
-                                        flag = true;
-                                    }
-                                    else {
-                                        tempLikesSet.add(photoPostChange.likes[j]);
-                                        flag = true;
-                                    }
-                                    photoPosts[i].likes = Array.from(tempLikesSet);
-                                }
-                            }
-                        }
-                    }
-                    break;
+                    postToEdit.likes = Array.from(tempLikesSet);
                 }
             }
         }
@@ -283,10 +273,10 @@ let js = (function () {
     }
 
     function removePhotoPost(id) {
-        let i;
-        for (i = 0; i < photoPosts.length; i++) {
+        for (let i = 0; i < photoPosts.length; i++) {
             if (photoPosts[i].id === id) {
-                photoPosts.splice(i, 1);
+                //photoPosts.splice(i, 1);
+                photoPosts[i].isDeleted = true;
                 return true;
             }
         }
