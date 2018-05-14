@@ -2,3 +2,6 @@
 .DS_Store/
 .idea/
 out/
+node_modules/
+DOM+js+html/ui/script.js
+DOM+js+html/ui/index.html
