@@ -81,7 +81,7 @@ function validatePhotoPost(photoPost) {
 }
 
 function addPhotoPost(photoPost) {
-    let allPostsString = fs.readFileSync('./data/posts.json');
+    let allPostsString = fs.readFileSync('../server/data/posts.json');
     let photoPosts = JSON.parse(allPostsString, function (key, value) {
         if (key == 'createdAt') {
             return new Date(value);
@@ -90,14 +90,14 @@ function addPhotoPost(photoPost) {
     });
     if (validatePhotoPost(photoPost)) {
         photoPosts.push(photoPost);
-        fs.writeFileSync('./data/posts.json', JSON.stringify(photoPosts));
+        fs.writeFileSync('../server/data/posts.json', JSON.stringify(photoPosts));
         return true;
     }
     return false;
 }
 
 function getPhotoPost(id) {
-    let allPostsString = fs.readFileSync('./data/posts.json');
+    let allPostsString = fs.readFileSync('../server/data/posts.json');
     let photoPosts = JSON.parse(allPostsString, function (key, value) {
         if (key === 'createdAt') {
             return new Date(value);
@@ -112,10 +112,11 @@ function getPhotoPost(id) {
 }
 
 function editPhotoPost(id, photoPostChange) {
+    console.log(id);
+    console.log(photoPostChange);
+    //photoPostChange = JSON.parse(photoPosts);
 
-    photoPostChange = JSON.parse(photoPostChange);
-
-    let allPostsString = fs.readFileSync('/data/posts.json');
+    let allPostsString = fs.readFileSync('../server/data/posts.json');
     let photoPosts = JSON.parse(allPostsString, function (key, value) {
         if (key == 'createdAt') {
             return new Date(value);
@@ -171,12 +172,12 @@ function editPhotoPost(id, photoPostChange) {
             }
         }
     }
-    fs.writeFileSync('/data/posts.json', JSON.stringify(photoPosts));
+    fs.writeFileSync('../server/data/posts.json', JSON.stringify(photoPosts));
     return flag;
 }
 
 function removePhotoPost(id) {
-    let allPostsString = fs.readFileSync('/data/posts.json');
+    let allPostsString = fs.readFileSync('../server/data/posts.json');
     let photoPosts = JSON.parse(allPostsString, function (key, value) {
         if (key == 'createdAt') {
             return new Date(value);
@@ -188,7 +189,7 @@ function removePhotoPost(id) {
         if (photoPosts[i].id === id) {
             //photoPosts.splice(index, 1);
             photoPosts[i].isDeleted = true;
-            fs.writeFileSync('/data/posts.json', JSON.stringify(photoPosts));
+            fs.writeFileSync('../server/data/posts.json', JSON.stringify(photoPosts));
             return true;
         }
     }
@@ -263,7 +264,7 @@ function getPhotoPosts(skip, top, filterConfig) {
     if (typeof (top) !== 'number') {
         top = 10;
     }
-    let stringOfPosts = fs.readFileSync('/data/posts.json');
+    let stringOfPosts = fs.readFileSync('../server/data/posts.json');
     let photoPosts = JSON.parse(stringOfPosts, function (key, value) {
         if (key == 'createdAt') {
             return new Date(value);
