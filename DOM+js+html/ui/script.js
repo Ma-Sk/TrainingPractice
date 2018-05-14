@@ -96,7 +96,7 @@ let js = (function () {
         }
         else {
             for (let i = 0; i < photoPosts.length; i++) {
-                if (!photoPosts[i].isDeleted) {
+              if (!photoPosts[i].isDeleted) {
                     filteredPosts.push(photoPosts[i]);
                 }
             }
@@ -202,6 +202,16 @@ let js = (function () {
             }
         }
     }
+    function addPhotoPost(photoPost)//: boolean
+    {
+        if (validatePhotoPost(photoPost)) {
+            if (!usedID.has(photoPost.id)) {
+                photoPosts.push(photoPost);
+                usedID.add(photoPost.id);
+                return true;
+            }
+        }
+    }
 
     function savePost(descript, hash, id) {
         let goodHashtags = hash.split(' ');
@@ -297,10 +307,10 @@ let js = (function () {
         getPhotoPost,
         addPhotoPost,
         getPhotoPosts,
+        removePhotoPost,
         editPhotoPost,
         checkLog,
         savePost,
         getFreeId
     }
 }());
-
