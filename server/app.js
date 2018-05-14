@@ -3,7 +3,6 @@ let fs = require('fs');
 let port = 3000;
 
 http.createServer(function (request, response) {
-
     console.log(`Requested address: ${request.url}`);
     let filePath;
     if (request.url === '/') {
