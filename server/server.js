@@ -4,7 +4,7 @@ let bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000;
-
+let dataPath = '../server/data/posts.json';
 function Photopost(id, description, createdAt, author, photolink, likes, hashtags, isDeleted) {
     this.id = id;
     this.description = description;
@@ -21,12 +21,34 @@ function Photopost(id, description, createdAt, author, photolink, likes, hashtag
     }
 }
 
-function getFreeId() {
-    for (let i = 0; true; i++) {
-        if (usedID.indexOf(i.toString()) === -1) {
-            return i.toString();
-        }
-    }
+function readPostsString() {
+    return new Promise((resolve, reject) => {
+        fs.readFile(dataPath, (err, postsString) => {
+            if (err) {
+                reject(err);
+            } else {
+                let photoPosts = JSON.parse(postsString, function (key, value) {
+                    if (key === 'createdAt') {
+                        return new Date(value);
+                    }
+                    return value;
+                });
+                resolve(photoPosts);
+            }
+        });
+    });
+}
+
+function writePostsString(photoPosts) {
+    return new Promise((resolve, reject) => {
+        fs.writeFile(dataPath, JSON.stringify(photoPosts), err => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve('Operation successfull');
+            }
+        });
+    });
 }
 
 function datesort(a, b) {
@@ -73,70 +95,40 @@ function validatePhotoPost(photoPost) {
     if (!photoPost.hashtags.every(isString)) {
         return false;
     }
-    // if (!photoPosts.every(item => item.id !== photoPost.id)) {
-    //     return false;
-    // }
 
     return true;
 }
 
-function addPhotoPost(photoPost) {
-    let allPostsString = fs.readFileSync('./data/posts.json');
-    let photoPosts = JSON.parse(allPostsString, function (key, value) {
-        if (key == 'createdAt') {
-            return new Date(value);
-        }
-        return value;
-    });
+async function addPhotoPost(photoPost) {
+    let allPostsString = await readPostsString();
+
     if (validatePhotoPost(photoPost)) {
-        photoPosts.push(photoPost);
-        fs.writeFileSync('./data/posts.json', JSON.stringify(photoPosts));
+        allPostsString.push(photoPost);
+        await writePostsString(allPostsString);
         return true;
     }
     return false;
 }
 
-function getPhotoPost(id) {
-    let allPostsString = fs.readFileSync('./data/posts.json');
-    let photoPosts = JSON.parse(allPostsString, function (key, value) {
-        if (key === 'createdAt') {
-            return new Date(value);
-        }
-        return value;
-    });
-    for (let i = 0; i < photoPosts.length; i++) {
-        if (photoPosts[i].id === id) {
-            return photoPosts[i];
+async function getPhotoPost(id) {
+    let allPostsString = await readPostsString();
+
+    for (let i = 0; i < allPostsString.length; i++) {
+        if (allPostsString[i].id === id && !allPostsString[i].isDeleted) {
+            return allPostsString[i];
         }
     }
 }
 
-function editPhotoPost(id, photoPostChange) {
+async function editPhotoPost(id, photoPostChange) {
+    let allPostsString = await readPostsString();
 
-    photoPostChange = JSON.parse(photoPostChange);
-
-    let allPostsString = fs.readFileSync('/data/posts.json');
-    let photoPosts = JSON.parse(allPostsString, function (key, value) {
-        if (key == 'createdAt') {
-            return new Date(value);
-        }
-        return value;
-    });
-    //
-    // if (typeof (id) !== 'string') {
-    //     return false;
-    // }
-    // if (photoPost === undefined) {
-    //     return false;
-    // }
-
-    let postToEdit = getPhotoPost(id);
+    let postToEdit = await getPhotoPost(id);
 
     if (postToEdit === undefined) {
         return false;
     }
 
-    // buff = clone(buff);
     let flag = false;
     if (photoPostChange.description !== undefined) {
         if (typeof (photoPostChange.description) === 'string') {
@@ -171,24 +163,17 @@ function editPhotoPost(id, photoPostChange) {
             }
         }
     }
-    fs.writeFileSync('/data/posts.json', JSON.stringify(photoPosts));
+    await writePostsString(allPostsString);
     return flag;
 }
 
-function removePhotoPost(id) {
-    let allPostsString = fs.readFileSync('/data/posts.json');
-    let photoPosts = JSON.parse(allPostsString, function (key, value) {
-        if (key == 'createdAt') {
-            return new Date(value);
-        }
-        return value;
-    });
+async function removePhotoPost(id) {
+    let allPostsString = await readPostsString();
 
-    for (let i = 0; i < photoPosts.length; i++) {
-        if (photoPosts[i].id === id) {
-            //photoPosts.splice(index, 1);
-            photoPosts[i].isDeleted = true;
-            fs.writeFileSync('/data/posts.json', JSON.stringify(photoPosts));
+    for (let i = 0; i < allPostsString.length; i++) {
+        if (allPostsString[i].id === id) {
+            allPostsString[i].isDeleted = true;
+            await writePostsString(allPostsString);
             return true;
         }
     }
@@ -242,7 +227,7 @@ function filtfunc(param, filterConfig) {
     return flagAuthor && flagHash;
 }
 
-function getPhotoPosts(skip, top, filterConfig) {
+async function getPhotoPosts(skip, top, filterConfig) {
     let filteredPosts = [];
     if (typeof(skip) === 'string') {
         skip = JSON.parse(skip);
@@ -263,80 +248,75 @@ function getPhotoPosts(skip, top, filterConfig) {
     if (typeof (top) !== 'number') {
         top = 10;
     }
-    let stringOfPosts = fs.readFileSync('/data/posts.json');
-    let photoPosts = JSON.parse(stringOfPosts, function (key, value) {
-        if (key == 'createdAt') {
-            return new Date(value);
-        }
-        return value;
-    });
 
-    photoPosts.sort(datesort);
+    let stringOfPosts = await readPostsString();
+
+    stringOfPosts.sort(datesort);
     if (typeof(filterConfig) !== 'undefined') {
-        for (let i = 0; i < photoPosts.length; i++) {
-            if (!photoPosts[i].isDeleted) {
-                if (filtfunc(photoPosts[i], filterConfig)) {
-                    filteredPosts.push(photoPosts[i]);
+        for (let i = 0; i < stringOfPosts.length; i++) {
+            if (!stringOfPosts[i].isDeleted) {
+                if (filtfunc(stringOfPosts[i], filterConfig)) {
+                    filteredPosts.push(stringOfPosts[i]);
                 }
             }
         }
     }
     else {
-        filteredPosts = photoPosts.filter(element => {
+        filteredPosts = stringOfPosts.filter(element => {
             return !element.isDeleted;
-        });//Need to filter only deleted elements
+        });
     }
-    return JSON.stringify(filteredPosts.slice(skip, skip + top));
+    return filteredPosts.slice(skip, skip + top);
 }
 
 app.use(bodyParser.json());
-//app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({extended: true}));
-// app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.static('../public'));
 
 
-app.get('/getPhotoPost/:id', function (req, res) {
-    let post = getPhotoPost(req.params.id);
+app.get('/getPhotoPost/:id', async function (req, res) {
+    let post = await getPhotoPost(req.params.id);
     if (post !== undefined) {
-        post = JSON.stringify(post);
-        res.send(200, post);
+        res.send(post);
+    }else {
+        res.status(404).send('Photopost not found');
     }
-    res.send(404, `Photopost not found`);
 });
 
-app.post('/getPhotoPosts', function (req, res) {
+app.post('/getPhotoPosts', async function (req, res) {
     let skip = req.query.skip;
     let top = req.query.top;
     let filterConfig = req.body;
-    //filterConfig = JSON.stringify(filterConfig);
-    // console.log(filterConfig);
-    let photoPosts = getPhotoPosts(skip, top, filterConfig);
+    let photoPosts = await getPhotoPosts(skip, top, filterConfig);
     if (photoPosts !== undefined) {
-        res.send(200, photoPosts);
+        res.send(photoPosts);
+    } else {
+        res.status(404).send('Photopost not found');
     }
-    res.send(404, 'Error');
 });
 
-app.post('/addPhotoPost', function (req, res) {
-    if (addPhotoPost(req.body)) {
-        res.send(200, `Photopost was successfully added`);
+app.post('/addPhotoPost', async function (req, res) {
+    if (await addPhotoPost(req.body)) {
+        res.send('Photopost was successfully added');
+    }else {
+        res.status(400).send('Operation failed');
     }
-    res.send(404, `Operation failed`);
 });
 
-app.put('/editPhotoPost/:id', function (req, res) {
-    if (editPhotoPost(req.params.id, req.body)) {
-        res.send(200, `Photopost was successfully edited`);
+app.put('/editPhotoPost/:id', async function (req, res) {
+    if (await editPhotoPost(req.params.id, req.body)) {
+        res.send('Photopost was successfully edited');
+    } else{
+        res.status(400).send('Operation failed');
     }
-    res.send(404, 'Operation failed');
 });
 
-app.delete('/removePhotoPost/:id', function (req, res) {
-    if (removePhotoPost(req.params.id)) {
-        res.send(200, `Photopost was successfully deleted`);
+app.delete('/removePhotoPost/:id', async function (req, res) {
+    if (await removePhotoPost(req.params.id)) {
+        res.send('Photopost was successfully deleted');
+    }else {
+        res.status(400).send('Operation failed');
     }
-    res.send(404, `Operation failed`);
 });
 
 app.listen(port, function () {
