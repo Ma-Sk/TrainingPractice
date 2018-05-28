@@ -698,3 +698,30 @@ button{
         border-radius: 10px;
     }
 }
+
+.errorblock{
+    margin-top: 35vh;
+    text-align: center;
+}
+
+.errortext{
+    font-size: 200%;
+}
+
+.imagefileinput {
+    display: none;
+    font-size: 2vw;
+}
+
+.imagefilemodinput {
+    font-size: 2vw;
+    border-style: outset;
+    background: #6a82dc;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.imagefilemodinput:hover {
+    background-color: white;
+    border-style: outset;
+}
