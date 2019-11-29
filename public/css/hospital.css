@@ -1,0 +1,62 @@
+header div {
+    font-size: 6vh;
+    font-family: Tahoma;
+    padding-top: 0.5vh;
+    margin-right: 2vw;
+    padding-bottom: 0.5vh;
+    float: right;
+}
+header {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, #c72364, #f74c6b);
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid black;
+}
+#info{
+    font-size: 200%;
+    margin-top: 30vh;
+}
+#infoLeft{
+    margin-left: 10vw;
+    font-size: 200%;
+    margin-top: 30vh;
+    float: left;
+}
+#chose{
+    margin-right: 10vw;
+    font-size: 200%;
+    margin-top: 30vh;
+    float: right;
+}
+
+
+footer {
+    text-align: center;
+    background: linear-gradient(to right, #c72364, #f74c6b);
+    width: 100%;
+    border-top: 2px solid #606060;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+footer div {
+    margin-top: 1vh;
+    float: left;
+    font-size: 1.2vw;
+    margin-left: 3%;
+}
+#warning{
+     font-size: 50%;
+     color: red;
+     /*float: right;*/
+ }
+
+#warningNoId{
+    font-size: 50%;
+    color: red;
+    /*float: right;*/
+}

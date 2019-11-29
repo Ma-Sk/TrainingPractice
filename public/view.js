@@ -258,6 +258,7 @@ const view = (function () {
   }
   async function loadMainPage(user) {
     try {
+      console.log(user);
       await clearPage();
       lastLoadedPostsAmount = 0;
       const content = document.getElementById('content');
