@@ -1,24 +1,24 @@
-let http = require('http');
-let fs = require('fs');
-let port = 3000;
+const http = require('http');
+const fs = require('fs');
 
-http.createServer(function (request, response) {
-    console.log(`Requested address: ${request.url}`);
-    let filePath;
-    if (request.url === '/') {
-        filePath = 'public/index.html';
+const port = 3000;
+
+http.createServer((request, response) => {
+  console.log(`Requested address: ${request.url}`);
+  let filePath;
+  if (request.url === '/') {
+    filePath = 'public/index.html';
+  } else {
+    filePath = `public/${request.url}`;
+  }
+  fs.readFile(filePath, (error, data) => {
+    if (error) {
+      response.statusCode = 404;
+      response.end('No data found!');
+    } else {
+      response.end(data);
     }
-    else {
-        filePath = 'public/' + request.url;
-    }
-    fs.readFile(filePath, function (error, data) {
-        if (error) {
-            response.statusCode = 404;
-            response.end('No data found!');
-        } else {
-            response.end(data);
-        }
-    })
+  });
 }).listen(port, () => {
-    console.log('Server is listening at ' + port);
+  console.log(`Server is listening at ${port}`);
 });

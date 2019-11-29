@@ -1,0 +1,28 @@
+{
+    "extends": "airbnb-base",
+    "rules": {
+        "no-unused-vars": 0,
+        "no-plusplus": "off",
+        "no-console": "off",
+        "func-names": "off",
+        "no-alert": "off",
+        "prefer-destructuring": 0,
+        "no-constant-condition": "off",
+        "no-restricted-syntax": "off",
+        "guard-for-in": "off"
+    },
+    "globals": {
+        "user": true,
+        "Photopost": true,
+        "users": true,
+        "lastLoadedPostsAmount": true,
+        "latestFilterConfig": true,
+        "view": true,
+        "controller": true,
+        "model": true,
+        "currentUser": true
+    },
+    "env": {
+        "browser": true
+    }
+}
